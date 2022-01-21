@@ -2,10 +2,23 @@ import React, { useContext } from 'react'
 import styled from 'styled-components'
 import topBg from '../../../share/background/top-background.jpg'
 import bottomBg from '../../../share/background/bottom-background.jpg'
-import { Button } from 'antd'
+import { Button, Col, Row } from 'antd'
 import { AppContext } from '../../provider/AppProvider'
 import { btnCss } from '../../css-objects'
+import { homeCorals } from '../../../share/data'
+import CoralView from '../../../common/CoralView'
+import { CloudUploadOutlined } from '@ant-design/icons/lib/icons'
 
+
+const UploadBtn = styled(Button)`
+    height: 120px; 
+    width: 120px;
+    border-radius: 50%;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+`
 const Wrapper = styled.div`
     display: flex;
     flex-flow: column nowrap;
@@ -17,16 +30,11 @@ const Top = styled.div`
     background-size: cover;
     height: 20vh;
     width: 100vw;
-`
-const Bottom = styled.div`
-    background-image: url(${bottomBg});
-    background-size: cover;
-    height: 20vh;
-    width: 100vw;
-`
-const Body = styled.div`
-    height: 60vh;
-    width: 100vw;
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
 `
 const Nav = styled.div`
     display: flex;
@@ -45,12 +53,28 @@ const Nav = styled.div`
         align-items: center;
     }
 `
+const Body = styled.div`
+    height: 60vh;
+    width: 100vw;
+    overflow-y: scroll;
+`
+const DataView = styled.div`
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+`
+const Bottom = styled.div`
+    background-image: url(${bottomBg});
+    background-size: cover;
+    height: 20vh;
+    width: 100vw;
+`
 export default function Home() {
     const { navigation } = useContext(AppContext)
     return (
         <Wrapper>
-            <Top></Top>
-            <Body>
+            <Top>
+                <UploadBtn><CloudUploadOutlined style={{ fontSize: 70 }} /></UploadBtn>
                 <Nav>
                     <div className='flexStart'>
                         <Button
@@ -82,6 +106,17 @@ export default function Home() {
                         </Button>
                     </div>
                 </Nav>
+            </Top>
+            <Body>
+                <DataView>
+                    <Row>
+                        {
+                            homeCorals.map(c => (
+                                <Col span={4}><CoralView name={c.name} imageSrc={c.src} /></Col>
+                            ))
+                        }
+                    </Row>
+                </DataView>
             </Body>
             <Bottom></Bottom>
         </Wrapper>

@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
 import bg from '../../../share/background/auth-background.jpg'
 import { Form, Input, Button } from 'antd'
 import { btnCss, globalBlue } from '../../css-objects'
+import { AppContext } from '../../provider/AppProvider'
 
 const Wrapper = styled.div`
     background-image: url(${bg});
@@ -39,6 +40,7 @@ const FormStyle = styled(Form)`
     }
 `
 export default function Login() {
+    const { navigation } = useContext(AppContext)
     const handleFinish = () => {
 
     }
@@ -75,10 +77,21 @@ export default function Login() {
                         type="primary"
                         htmlType="submit"
                     >
-                        Sign In
+                        Login
                     </Button>
-                    <div className='signUp' style={{ display: 'inline-block', marginLeft: '5px', color: globalBlue }}>Sign up</div>
-                    <div className='forgot' style={{ marginTop: '10px', color: globalBlue }}>Forgot password</div>
+                    <div
+                        className='signUp'
+                        style={{ display: 'inline-block', marginLeft: '5px', color: globalBlue }}
+                        onClick={() => navigation('/register')}
+                    >
+                        <a>Sign up</a>
+                    </div>
+                    <div
+                        className='forgot'
+                        style={{ marginTop: '10px', color: globalBlue }}
+                    >
+                        Forgot password
+                    </div>
                 </Form.Item>
             </FormStyle>
         </Wrapper>
